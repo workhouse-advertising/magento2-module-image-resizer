@@ -224,7 +224,7 @@ class Resizer
                 $subPath .= "_" . $this->subPathSettingsMapping[$key];
             }
         }
-        return sprintf('%s_%s',$subPath, $this->resizeSettings['quality']);
+        return sprintf('%s_%s',$subPath, $this->resizeSettings['quality'] ?? 'null');
     }
 
     /**
@@ -293,12 +293,12 @@ class Resizer
 
         $imageAdapter = $this->imageAdapterFactory->create();
         $imageAdapter->open($this->getAbsolutePathOriginal());
-        $imageAdapter->constrainOnly($this->resizeSettings['constrainOnly']);
-        $imageAdapter->keepAspectRatio($this->resizeSettings['keepAspectRatio']);
-        $imageAdapter->keepTransparency($this->resizeSettings['keepTransparency']);
-        $imageAdapter->keepFrame($this->resizeSettings['keepFrame']);
-        $imageAdapter->backgroundColor($this->resizeSettings['backgroundColor']);
-        $imageAdapter->quality($this->resizeSettings['quality']);
+        if (isset($this->resizeSettings['constrainOnly'])) $imageAdapter->constrainOnly($this->resizeSettings['constrainOnly']);
+        if (isset($this->resizeSettings['keepAspectRatio'])) $imageAdapter->keepAspectRatio($this->resizeSettings['keepAspectRatio']);
+        if (isset($this->resizeSettings['keepTransparency'])) $imageAdapter->keepTransparency($this->resizeSettings['keepTransparency']);
+        if (isset($this->resizeSettings['keepFrame'])) $imageAdapter->keepFrame($this->resizeSettings['keepFrame']);
+        if (isset($this->resizeSettings['backgroundColor'])) $imageAdapter->backgroundColor($this->resizeSettings['backgroundColor']);
+        if (isset($this->resizeSettings['quality'])) $imageAdapter->quality($this->resizeSettings['quality']);
         $imageAdapter->resize($this->width, $this->height);
         $imageAdapter->save($this->getAbsolutePathResized());
         return true;
