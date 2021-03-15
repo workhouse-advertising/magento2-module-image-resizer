@@ -141,7 +141,7 @@ class Resizer
             $this->initSize($width, $height);
             $this->initResizeSettings($resizeSettings);
         } catch (\Exception $e) {
-            $this->logger->addError("Staempfli_ImageResizer: could not find image: \n" . $e->getMessage());
+            $this->logger->error("Staempfli_ImageResizer: could not find image: \n" . $e->getMessage());
         }
         try {
             // Check if resized image already exists in cache
@@ -155,7 +155,7 @@ class Resizer
                 $resultUrl = $resizedUrl;
             }
         } catch (\Exception $e) {
-            $this->logger->addError("Staempfli_ImageResizer: could not resize image: \n" . $e->getMessage());
+            $this->logger->error("Staempfli_ImageResizer: could not resize image: \n" . $e->getMessage());
         }
 
         return $resultUrl;
